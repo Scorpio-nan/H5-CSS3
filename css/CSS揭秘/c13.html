@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>svg优化</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				text-decoration: none;
+				list-style: none;
+			}
+			svg{
+				width: 100%;
+				height: 100%;
+				transform: rotate(-90deg);
+				background: yellowgreen;
+				border-radius: 50%;
+			}
+			circle{
+				fill: yellowgreen;
+				stroke: #655;
+				stroke-width: 32;
+				/*stroke-dasharray: 20 10;*/
+				stroke-dasharray: 38 100;   /* 半径 = 100/2π */
+				animation: fillUp 5s linear infinite;
+			}
+			@keyframes fillUp{
+				to{
+					stroke-dasharray: 158 158;
+				}
+			}
+			.box{
+				width: 300px;
+				height: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<svg viewBox="0 0 32 32">
+				<circle r="16" cx="16" cy="16"/>
+			</svg>
+		</div>
+	</body>
+</html>

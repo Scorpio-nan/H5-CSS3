@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义复选框</title>
+		<style type="text/css">
+			input[type="checkbox"]+label::before {
+				content: '\a0';/* 不换行空格 */
+				display: inline-block;
+				vertical-align: 0px;
+				width: 30px;
+				height: 30px;
+				margin-right: 8px;
+				border-radius: 4px;
+				background: silver;
+				line-height: 30px;
+			}
+			input[type="checkbox"]:checked+label::before {
+				content: '\2713';/*字符*/
+				background: yellowgreen;
+				text-align: center;
+			}
+			
+			input[type="checkbox"] {
+				position: absolute;
+				clip: rect(0, 0, 0, 0);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="from">
+			<input type="checkbox" name="checkSize" id="checkSizexl" value="" /><label for="checkSizexl">XL</label>
+			<input type="checkbox" name="checkSize" id="checkSizel" value="" /><label for="checkSizel">L</label>
+			<input type="checkbox" name="checkSize" id="checkSizex" value="" /><label for="checkSizex">X</label>
+			<input type="checkbox" name="checkSize" id="checkSizes" value="" /><label for="checkSizes">S</label>
+			<input type="checkbox" name="checkSize" id="checkSizem" value="" /><label for="checkSizem">M</label>
+		</div>
+	</body>
+
+</html>

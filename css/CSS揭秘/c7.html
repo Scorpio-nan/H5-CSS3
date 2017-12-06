@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>菱形图片</title>
+		<style type="text/css">
+			.box{
+				width: 300px;
+				margin: 100px auto;
+				overflow: hidden;
+				border:1px solid #00AFFF;
+				transform: rotate(45deg);
+			}
+			.box>img{
+				display: block;
+				max-width: 100%;
+				transform: rotate(-45deg)scale(1.42);
+				border:1px solid #2C3E50;
+			}
+			
+			/*.box:hover img{
+				animation: .5s animate linear;
+			}
+			@keyframes animate{
+				from{
+					transform: rotate(-45deg);
+				}
+				to{
+					transform: rotate(-45deg)scale(1.42);
+				}
+			}*/
+			
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<img src="img/4.jpg"/>
+		</div>
+	</body>
+</html>

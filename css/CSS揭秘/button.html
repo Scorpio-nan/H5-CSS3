@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding:0;}
+			.box{
+				padding: 30px;
+			}
+			.button{
+				display: inline-block;
+				width: 38px;
+				height: 20px;
+				background-color: #fff;
+				border: 1px solid #C0C0C0;
+				border-radius: 30px;
+				position: relative;
+				cursor: pointer;
+				transition: background-color .75s linear;
+			}
+			/*.button:hover{
+				background-color: #55ff5b;
+				transition: background-color .75s linear;
+			}
+			.button:hover .slide{
+				position: absolute;
+				left: 20px;
+				top: 0;
+				transition: all .3s linear;
+			}*/
+			.slide{
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				background: #fff;
+				border: 1px solid #C0C0C0;
+				border-radius: 50%;
+				transition: all .3s linear;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="button">
+				<a href="javascript:;" class="slide"></a>
+			</div>	
+		</div>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			var open = false;
+			$('.button').click(function(){
+				if(!open){
+					$(this).css({'background-color':'#55ff5b','transition':'background-color .75s linear'});
+					$(this).find('a').css({'left':'18px','transition':'transition: all fast linear'});
+					getValue(open);
+					open = !open;
+				}else{
+					$(this).css({'background-color':'#fff','transition':'background-color .75s linear'});
+					$(this).find('a').css({'left':'0','transition':'transition: all fast linear'});
+					getValue(open);
+					open = !open;
+				}
+			})
+			function getValue(val){
+				if(val){
+					alert('关闭！');
+				}else{
+					alert('打开！');
+				}
+			}
+			
+		</script>
+	</body>
+</html>

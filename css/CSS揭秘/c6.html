@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>平行四边形按钮</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				text-decoration: none;
+				list-style: none;
+			}
+			.box{
+				margin: 80px auto;
+				width: 1024px;
+			}
+			.button{
+				display: inline-block;
+				padding: 6px 30px;
+				background: #0086B3;
+				transform: skewX(30deg);
+				color: #fff;
+			}
+			.button:hover{
+				background:#00AFFF;
+			}
+			.index{
+				transform:skew(0);
+				position: relative;
+				margin-right: 15px;
+				padding: 6px 25px;
+			}
+			.index:hover,.index:hover::after,.last:hover::after{
+				background:#00AFFF;
+			}
+			.index:after{
+				display: block;
+				content: '';
+				z-index: -1;
+				position: absolute;
+				left: 0;top: 0;bottom: 0;right: 0;
+				transform: skew(30deg) translateX(13px);
+				background: #0086B3;
+			}
+			
+			.index .text,.last .text{
+				transform:skew(0);
+			}
+			.text{
+				transform: skew(-30deg);
+			}
+			.last{
+				transform:skew(0);
+				position: relative;
+				margin-left: 15px;
+				padding: 6px 25px;
+			}
+			.last:after{
+				display: block;
+				content: '';
+				z-index: -1;
+				position: absolute;
+				left: 0;top: 0;bottom: 0;right: 0;
+				transform: skew(30deg) translateX(-15px);
+				background: #0086B3;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<a href="javascript:;" class="button index">
+				<div class="text">官网</div>
+			</a>
+			<a href="javascript:;" class="button">
+				<div class="text">首页</div>
+			</a>
+			<a href="javascript:;" class="button">
+				<div class="text">文章</div>
+			</a>
+			<a href="javascript:;" class="button">
+				<div class="text">关于</div>
+			</a>
+			<a href="javascript:;" class="button">
+				<div class="text">我的</div>
+			</a>
+			<a href="javascript:;" class="button last">
+				<div class="text">结尾</div>
+			</a>
+		</div>
+	</body>
+</html>

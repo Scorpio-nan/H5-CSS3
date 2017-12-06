@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>css饼图</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				text-decoration: none;
+				list-style: none;
+			}
+			.pie{
+				width: 300px;
+				height: 300px;
+				border-radius: 50%;
+				background: yellowgreen;
+				margin: 80px auto;
+				background-image: linear-gradient(to right,transparent 50%,#655 0);
+				overflow: hidden;
+			}
+			.pie::before{
+				content: '';
+				display: block;
+				margin-left: 50%;
+				height: 100%;
+				background-color: inherit;      /*50% 比例下的 背景颜色*/
+				/*background: #655;*/					/*50% 以上的背景颜色*/
+				transform-origin: 0 50%;
+				transform: rotate(0turn);
+				animation: spin 3s linear infinite,bg 6s step-end infinite;
+			}
+			@keyframes spin{
+				to{
+					transform: rotate(.5turn);
+				}
+			}
+			@keyframes bg{
+				50%{
+					background: #655;
+				}
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="pie">
+			
+		</div>
+	</body>
+</html>

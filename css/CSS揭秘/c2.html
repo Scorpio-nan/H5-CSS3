@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>calc CSS计算属性</title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;text-decoration: none;list-style: none;}
+			.box{
+				width: 300px;
+				height: 300px;
+				margin: 80px;
+				background: #00A0E9 url(img/4.jpg) bottom right no-repeat;
+				background-size: 100px 100px;
+				/*background-position:right 20px bottom 20px;*/       /*ie - 9  以上*/
+				
+				
+				/*padding: 20px;
+				box-sizing: border-box;
+				background-origin:content-box;*/
+				
+				background-position: calc(100% - 20px) calc(100% - 20px); 	 	 /* calc  css 运算函数   ie - 9 以上    安卓4.4以上*/			
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			
+		</div>
+	</body>
+</html>

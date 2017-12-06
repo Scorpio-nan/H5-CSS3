@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>切角设计</title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;text-decoration: none;list-style: none;}
+			.box{
+				width: 150px;
+				height: 150px;
+				background: #00A0E9;
+				margin: 50px auto;
+				background: linear-gradient(-45deg,transparent 30px,#00A0E9 0);
+			}
+			.up{
+				width: 0;
+			    height: 0;
+			    border-left: 50px solid transparent;
+			    border-right: 50px solid transparent;
+			    border-bottom: 100px solid red;
+			}
+			.down{
+				width: 0;
+			    height: 0;
+			    border-left: 50px solid transparent;
+			    border-right: 50px solid transparent;
+			    border-top: 100px solid red;
+			}
+			.left{
+				width: 0;
+			    height: 0;
+			    border-top: 50px solid transparent;
+			    border-right: 100px solid red;
+			    border-bottom: 50px solid transparent;
+			}
+			.right{
+				width: 0;
+			    height: 0;
+			    border-top: 50px solid transparent;
+			    border-left: 100px solid red;
+			    border-bottom: 50px solid transparent;
+			}
+			.top-left {
+			    width: 0;
+			    height: 0;
+			    border-top: 100px solid red;
+			    border-right: 100px solid transparent;
+			}
+			.top-right{
+				width: 0;
+			    height: 0;
+			    border-top: 100px solid red;
+			    border-left: 100px solid transparent; 
+			}
+			.bottom-left{
+				width: 0;
+			    height: 0;
+			    border-bottom: 100px solid red;
+			    border-right: 100px solid transparent;
+			}
+			.bottom-right{
+				width: 0;
+			    height: 0;
+			    border-bottom: 100px solid red;
+			    border-left: 100px solid transparent;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			
+		</div>
+		
+		<div class="up">
+			上
+		</div>
+		<br/>
+		<div class="down">
+			下
+		</div>
+		<br/>
+		<div class="left">
+			左
+		</div>
+		<br/>
+		<div class="right">
+			右
+		</div>
+		<br/>
+		<div class="top-left">
+			左上
+		</div>
+		<br/>
+		<div class="top-right">
+			右上
+		</div>
+		<br/>
+		<div class="bottom-left">
+			左下
+		</div>
+		<br/>
+		<div class="bottom-right">
+			右下
+		</div>
+		<br/>
+	</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			ul#testTube {
+				width: 100px;
+				height: 300px;
+				list-style: none;
+				border-radius: 0 0 100px 100px;
+				border: 1px solid #033a52;
+			}
+			
+			li#ingredients01 {
+				background-color: #4dbded;
+			}
+			
+			li#ingredients02 {
+				background-color: #2f9bc9;
+			}
+			
+			li#ingredients03 {
+				background-color: #136182;
+			}
+			
+			li#ingredients04 {
+				background-color: #033a52;
+				border-radius: 0 0 100px 100px;
+			}
+			
+			li#ingredients04 {
+				height: -moz-calc(300px/2 - 30px);
+				height: -webkit-calc(300px/2 - 30px);
+				height: calc(300px/2 - 30px);
+				/* Gesamtwert von 120px entspricht 40% der Füllmenge */
+			}
+			
+			li#ingredients03 {
+				height: -moz-calc(300px/10 + 60px);
+				height: -webkit-calc(300px/10 + 60px);
+				height: calc(300px/10 + 60px);
+				/* Gesamtwert von 90px entspricht 30% der Füllmenge */
+			}
+			
+			li#ingredients02 {
+				height: -moz-calc(300px/10*2);
+				height: -webkit-calc(300px/10*2);
+				height: calc(300px/10*2);
+				/* Gesamtwert von 60px entspricht 20% der Füllmenge */
+			}
+			
+			li#ingredients01 {
+				height: -moz-calc(300px/10);
+				height: -webkit-calc(300px/10);
+				height: calc(300px/10);
+				/* Gesamtwert von 30px entspricht 10% der Füllmenge */
+			}
+		</style>
+	</head>
+
+	<body>
+		<ul id="testTube" />
+		<li id="ingredients01">10%</li>
+		<li id="ingredients02">20%</li>
+		<li id="ingredients03">30%</li>
+		<li id="ingredients04">40%</li>
+		</ul>
+	</body>
+
+</html>
