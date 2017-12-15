@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#mycanvas{width: 800px;height: 800px;display: block;margin:60px auto;}
+		</style>
+	</head>
+	<body>
+		<canvas id="mycanvas" width="800" height="800"></canvas>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var dom=document.getElementById("mycanvas");
+			var c=dom.getContext("2d");
+			var bell={
+				panel:clock,
+				runH:hour,
+				runM:minute,
+				runS:second
+			}
+			var time=new Date();
+	
+			c.translate(dom.width/2,dom.height/2);
+			c.save();
+			
+			//时钟背景(表盘)
+			function clock(){
+				c.beginPath();
+				c.fillStyle="skyblue";
+				c.arc(0,0,230,0,2*Math.PI);
+				c.fill();
+				
+				c.beginPath();
+				c.fillStyle="#fff";
+				c.arc(0,0,220,0,2*Math.PI);
+				c.fill();
+				
+				for(var i=0;i<60;i++){
+					c.fillStyle="skyblue";
+					c.lineWidth=1;
+					c.beginPath();
+					c.arc(0,200,5,0,2*Math.PI);
+					c.fill();
+					c.rotate(2/60*Math.PI);
+					c.stroke();
+				}
+				
+				for(var j=0;j<12;j++){
+					c.beginPath();
+					c.fillStyle="333";
+					c.lineWidth=3;
+					c.arc(0,200,8,0,2*Math.PI);
+					c.fill();
+					c.rotate(2/12*Math.PI);
+					c.stroke();
+				}
+			}
+			
+			function hour(timeh){
+				c.beginPath();
+				c.strokeStyle="darkorchid";
+				c.lineWidth=5;
+				c.rotate(timeh*30*Math.PI/180);
+				c.moveTo(0,30);
+				c.lineTo(0,-90);
+				c.stroke();
+				
+				c.restore();
+				c.save();
+			}
+			
+			function minute(timem){
+				c.beginPath();
+				c.strokeStyle="indigo";
+				c.lineWidth=3;
+				c.rotate(timem*6*Math.PI/180);
+				c.moveTo(0,30);
+				c.lineTo(0,-130);
+				c.stroke();
+				
+				c.restore();
+				c.save();
+			}
+			
+			function second(times){
+				c.beginPath();
+				c.strokeStyle="purple";
+				c.lineWidth=1;
+				c.rotate(times*6*Math.PI/180);
+				c.moveTo(0,30);
+				c.lineTo(0,-170);
+				c.stroke();
+				
+				c.restore();
+				c.save();
+				
+				//绘制秒针的原点
+				c.beginPath();
+				c.fillStyle="purple";
+				c.arc(0,0,5,0,2*Math.PI);
+				c.fill();
+			}
+			
+			run();
+			function run(){
+				var time=new Date();
+				var timeh=time.getHours();
+				var timem=time.getMinutes();
+				var times=time.getSeconds();
+				timeh = timeh + timem/60;              //将24小时转换为12小时             
+				timeh=timeh>12?timeh-12:timeh;
+				setTimeout(function(){
+					c.clearRect(-dom.width/2,-dom.height/2,dom.width/2,dom.height/2);
+					bell.panel();
+					bell.runH(timeh);
+					bell.runM(timem);
+					bell.runS(times);
+					console.log(times);
+					run();
+				},1000)
+			}
+		}
+	</script>
+</html>

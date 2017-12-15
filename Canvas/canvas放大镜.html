@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<canvas id="mycanvas" width="" height="" style="display: block;margin:0 auto;border:1px solid #aaa"></canvas>
+		<input type="range"  id="scale-range" min="0.5" step="0.01" max="3.0" value="1.0" style="display: block;margin-left:35%;width: 800px;margin-top: 10px;" />
+		<!--
+			1.canvas标签的宽高设置
+			2.将图片绘制到canvas上
+			3.拖动拉杆（默认值，最小值，最大值），放大图片
+		-->
+	</body>
+	<script type="text/javascript">
+		var canvas=document.getElementById("mycanvas");
+		var context=canvas.getContext("2d");
+		var slider=document.getElementById("scale-range");
+		var scale;
+		canvas.width=1800;
+		canvas.height=920;
+		
+		var img=new Image();//创建img对象
+		img.src="img/5.jpg";
+		img.onload=function(){
+			drawImanges(scale);
+			context.drawImage(img,0,0,canvas.width,canvas.height);
+			
+			slider.onmousemove=function(){
+				scale=slider.value;//获取倍数；
+				drawImanges(scale);
+			}
+			function drawImanges(scale){
+				var imageswidth=canvas.width*scale;
+				var imagesheight=canvas.height*scale;
+				var x=canvas.width/2-imageswidth/2;
+				var y=canvas.height/2-imagesheight/2;
+				
+				context.clearRect(0,0,canvas.width,canvas.height);
+				context.drawImage(img,x,y,imageswidth,imagesheight);
+			}
+		}
+		
+	</script>
+</html>

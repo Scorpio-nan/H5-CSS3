@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body{width: 100%;height: 100%;}
+			#mycanvas{display: block;margin:100px auto;}
+			#disnone{display: none;}
+		</style>
+	</head>
+	<body>
+		<canvas id="mycanvas" ></canvas>
+		<canvas id="disnone" ></canvas>
+		<!--
+			1.设置canvas宽高
+			2.载入图片到canvas对象上
+			3.绑定拖拽事件
+				mousedown   mousemove mouseup mouseout
+				获取另一张图片到指定的部分的图形，获取绘制到当前的canvas画布上
+			4.放大
+				绘制放大镜
+				获取另一张图片指定的部分图形；
+				传入的坐标
+		-->
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			
+			var canvas=document.getElementById("mycanvas");
+			var context=canvas.getContext("2d");
+			canvas.width= 960;//1920;
+			canvas.height= 540;//1080;
+			
+			var offcanvas=document.getElementById("disnone");
+			var offcontext=offcanvas.getContext("2d");
+			
+			var scale;//图片的缩放比例
+			var ismousedown=false; //标记是否按下事件；
+			
+			var images=new Image();
+			images.src="img/5.jpg";
+			images.onload=function(){
+				offcanvas.width=images.width;
+				offcanvas.height=images.height;
+				
+				//获取放大倍数
+				scale=offcanvas.width/canvas.width; 
+				
+				context.drawImage(images,0,0,canvas.width,canvas.height);
+				offcontext.drawImage(images,0,0,offcanvas.width,offcanvas.height);
+				
+				
+			}
+			
+			function windowtocanvas(x,y){
+				var bbox=canvas.getBoundingClientRect();//获取具体坐标
+				return{x:x-bbox.left,y:y-bbox.top}
+				
+			}
+			
+			canvas.onmousedown=function(e){
+				e.preventDefault();
+				ismousedown=true;
+				point=windowtocanvas(e.clientX,e.clientY);
+				drawcanvas(true,point)
+			}
+			
+			canvas.onmousemove=function(e){
+				e.preventDefault();
+				if(ismousedown){
+					point=windowtocanvas(e.clientX,e.clientY);
+					drawcanvas(true,point);
+				}
+			}
+			
+			canvas.onmouseup=function(e){
+				e.preventDefault();
+				ismousedown=false; //标记为不可移动
+				drawcanvas(false);
+			}
+			
+			canvas.onmouseout=function(e){
+				e.preventDefault();
+				ismousedown=false;
+				drawcanvas(false);
+			}
+			
+			function drawcanvas(isshow,point){	//point获取坐标     射isshow 是否绘制
+				
+				context.clearRect(0,0,canvas.width,canvas.height);
+				context.drawImage(images,0,0,canvas.width,canvas.height)
+				if(isshow){
+					drwamagnifiler(point);//
+				}
+				
+			}
+			
+			function drwamagnifiler(point){
+				var mr=200;
+				var imagrsflgcx=point.x*scale;
+				var imagrsflgcy=point.y*scale;
+				
+				var sx=imagrsflgcx-mr;	//获取x坐标
+				var sy=imagrsflgcy-mr;	//获取y坐标
+				
+				var dx=point.x-mr;
+				var dy=point.y-mr;
+				
+				context.save();
+				context.lineWidth=5;
+				context.strokeStyle="#fff";
+				
+				context.beginPath();
+				context.arc(point.x,point.y,mr,0,2*Math.PI);//绘制园
+				context.stroke();		//保存绘制
+				context.clip();			//
+				
+				/*
+				 img:使用的图像
+				 sx sy :开始剪切的x/y坐标
+				 swidth/sheight ：被剪切的宽高
+				 x,y:把画布放置图像的xy坐标；
+				 
+				 width/height :要使用图像的宽高
+				 图像，画布上的xy坐标
+				
+				*/
+				context.drawImage(offcanvas,sx,sy,2*mr,2*mr,dx,dy,2*mr,2*mr);//把图像绘制到canvas对象上，offcanvas是回去的局部图片
+				context.restore();
+			}
+		}	
+	</script>
+</html>
