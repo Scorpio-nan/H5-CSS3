@@ -23,13 +23,13 @@
 			function CanvasUpload(dom, obj) {
 				if(!obj) obj = {};
 				var self = this;
-				var Canvas = document.querySelector(dom);
-				Canvas.style.background = obj.bg ? obj.bg : 'rgba(0,0,0,0.7)';
-				this.c = Canvas.getContext('2d');
+				this.dom = document.querySelector(dom);
+				this.dom.style.background = obj.bg ? obj.bg : 'rgba(0,0,0,0.7)';
+				this.c = this.dom.getContext('2d');
 				this.w = window.innerWidth;
 				this.h = window.innerHeight;
-				Canvas.width = this.w;
-				Canvas.height = this.h;
+				this.dom.width = this.w;
+				this.dom.height = this.h;
 				this.x = obj.x ? obj.x : (this.w / 2) + 5;
 				this.y = obj.y ? obj.y : (this.h / 2) + 22;
 				this.r = obj.r ? obj.r : 80;
@@ -43,8 +43,8 @@
 				this.particles = [];
 				this.particleMax = 100;
 				window.onresize = function(e) {
-					Canvas.width = self.w = this.innerWidth;
-					Canvas.height = self.h = this.innerHeight;
+					self.dom.width = self.w = this.innerWidth;
+					self.dom.height = self.h = this.innerHeight;
 				}
 				this.c.shadowBlur = this.blur;
 				this.c.shadowColor = 'hsla(' + this.hue + ', 80%, 60%, 1)';
@@ -58,7 +58,7 @@
 				gradient2.addColorStop(.1, 'hsla(' + this.hue + ', 100%, 100%, .7)');
 				gradient2.addColorStop(1, 'hsla(' + this.hue + ', 100%, 50%, 0)');
 				this.gradient2 = gradient2;
-				setInterval(function(){
+				this.timer = setInterval(function(){
 					self.__proto__.loop(self);
 				},10)
 			};
@@ -175,5 +175,9 @@
 					self.createParticles();
 					self.updateParticles();
 					self.renderParticles();
+				},
+				stop:function(){
+					clearInterval(this.timer);
+					document.body.remove(this.dom);
 				}
 			}
