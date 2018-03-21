@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			
+			class Person{
+				constructor(name){
+					this.name = name;
+				}
+				Hello(){
+					console.log('name:' + this.name);					
+				}
+			}
+			
+			var p = new Person('张三');
+			p.Hello();
+			
+			
+			class Student extends Person{
+				constructor(name,age){
+					super(name);
+					this.age = age;
+				}
+				Say(){
+					console.log('name:' + this.name + '\n' + 'age:' + this.age);
+				}
+			}
+			
+			var stu = new Student('小明',25);
+			stu.Say();	
+			
+		</script>
+	</body>
+</html>

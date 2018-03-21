@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function Person(props) {
+				this.name = props.name || 'Unnamed';
+			}
+
+			Person.prototype.hello = function() {
+				alert('Hello, ' + this.name + '!');
+			}
+
+			function Student(props) {
+				Person.call(this, props);
+				this.grade = props.grade || 1;
+			}
+
+			// 实现原型继承链:
+			inherits(Student, Person);
+
+			// 绑定其他方法到Student原型:
+			Student.prototype.say = function() {
+				alert(this.name + '---' + this.grade);
+			};
+
+			function inherits(Child, Parent) {
+				var F = function() {};
+				F.prototype = Parent.prototype;
+				Child.prototype = new F();
+				Child.prototype.constructor = Child;
+			}
+			
+			var p = new Student({name:'小明',age:25});
+			p.say();
+			
+		</script>
+	</body>
+
+</html>
