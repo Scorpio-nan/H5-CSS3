@@ -1,0 +1,10 @@
+diameter:				圆的半径
+totalSteps:				园等分成多少份
+completedSteps:			当前进度已完成量
+startColor:				设置起始颜色
+stopColor:				设置结束颜色
+innerStrokeColor:		默认的背景色
+strokeWidth:			园的厚度
+animateSpeed:			运动的时间
+fps:					帧数默认60
+timingFunc:				动画运动的方式
