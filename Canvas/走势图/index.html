@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+			}
+			
+			#main {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			
+			#table {
+				cursor: pointer;
+				position: absolute;
+				left: 0;
+				top: 35px;
+				border:1px solid #dedede; 
+				border-collapse:collapse;
+			}
+			
+			#table thead {}
+			
+			#table thead tr th {
+				border: 1px solid #ccc;
+				font-size: 14px;
+				font-weight: 100;
+				text-align: center;
+				vertical-align: middle;
+				padding: 3px 7px;
+			}
+			
+			#table thead tr .grid {
+				width: 28px;
+				text-align: center;
+				vertical-align: middle;
+				font-weight: 700;
+			}
+			
+			#table tbody th {
+				border: 1px solid #ccc;
+				font-size: 14px;
+				font-weight: 100;
+				text-align: center;
+				vertical-align: middle;
+				padding: 3px 7px;
+			}
+			
+			#table tbody tr td {
+				border: 1px solid #ccc;
+				font-size: 14px;
+				text-align: center;
+				vertical-align: middle;
+				color: #CCCCCC;
+				padding: 3px;
+			}
+			
+			#table tbody .odd .ball {
+				background: #2b9ff8;
+			}
+			
+			#table tbody .even .ball {
+				background: #ff7206;
+			}
+			
+			#table .ball {
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				border-radius: 50%;
+				line-height: 18px;
+				color: #fff;
+				font-size: 14px;
+			}
+			
+			#table .Transparent{
+				color: rgba(0,0,0,0);
+			}
+			
+			#table .same{
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				border-radius: 50%;
+				line-height: 18px;
+				color: #fff;
+				font-size: 14px;
+				background: red;
+			}
+			
+			
+			
+			#table .border-top th {
+				border-top: 1px solid red;
+				position: relative;
+			}
+			#table .border-top.Auxline th:after{
+				content: '';
+				display: block;
+				width: 100%;
+				height: 1px;
+				background: red;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			#table .border-top td {
+				border-top: 1px solid red;
+				position: relative;
+			}
+			
+			
+			#table .border-top.Auxline td:after{
+				content: '';
+				display: block;
+				width: 100%;
+				height: 1px;
+				background: red;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			
+			
+			#table .border-right {
+				border-right: 1px solid red;
+			}
+			
+			.chart_svg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: -1;
+			}
+			
+			#Controller{
+				position: absolute;
+				width: 100%;
+				height: 35px;
+				line-height: 35px;
+				background: #2d2d2d;
+			}
+			#Controller label{
+				color: #fff;
+				margin-left:15px;
+				background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAyCAYAAACpgnCWAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjUzNzFDM0EyQjNDMTFFNzhGMDlCODVBMjhGQTZDMUQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjUzNzFDMzkyQjNDMTFFNzhGMDlCODVBMjhGQTZDMUQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MEUzN0NDMzZBOUQxMUU2OTJDRUI5NzU2NEU1Q0ZFRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1MEUzN0NDNDZBOUQxMUU2OTJDRUI5NzU2NEU1Q0ZFRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrWTLfwAAAGlSURBVHja7JbPS8MwFMeT2G1tU3VTJh6GCLt5UMSb4E3EqzDmVfDvEgRBQQQPXob/hOBdFAQ97NA56ua6dTFPFihx6fpDdxh5EJqkL++TvITkixlj6L8NzybkoVQ65J9rXuYzxGzzcrztug0VpJ0RIOyTQxzRMKSfP4DzVuu0iZCfNHIZofxJsXjGqzTcT8Y5pwFEjSNoCqYhGqIhGjINSAmhXJpgqnHye+LJ1/RfvCfySurgkBUwijPrQkJDtLjT4m7sOCNLTmr5/IGo3/j+vcrPyAJYMq2tRYI3PUaeashTgoy0gGWT7iwQtgFtBw+rxLILtTQrgWAY4zl+AgMxS+grW/aug1k17GtjVEmcLghWselRDjHnY8gexSxXTLpHMVuX/d/9fiPRywiANUrrAIA25B3Ss2rZ+5T8Brz5/t3XoN9MvCc8R4VwW+Rfttde73YQBF7U6VIKiZdu92rSAYgDUEJgEN/sAQddRk0iDiByJSNQMA4EfTCJOICJukuAnjudCwkQxAXEEnciGICgJAUoTxeINBehfpx7SYs7rVaU9i3AAAvkGLkhnt+yAAAAAElFTkSuQmCC') no-repeat left -1px;
+				height: 25px;
+    			line-height: 25px;
+			}
+			#Controller .selected{
+				background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAyCAYAAACpgnCWAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjUzNzFDM0EyQjNDMTFFNzhGMDlCODVBMjhGQTZDMUQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjUzNzFDMzkyQjNDMTFFNzhGMDlCODVBMjhGQTZDMUQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MEUzN0NDMzZBOUQxMUU2OTJDRUI5NzU2NEU1Q0ZFRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1MEUzN0NDNDZBOUQxMUU2OTJDRUI5NzU2NEU1Q0ZFRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrWTLfwAAAGlSURBVHja7JbPS8MwFMeT2G1tU3VTJh6GCLt5UMSb4E3EqzDmVfDvEgRBQQQPXob/hOBdFAQ97NA56ua6dTFPFihx6fpDdxh5EJqkL++TvITkixlj6L8NzybkoVQ65J9rXuYzxGzzcrztug0VpJ0RIOyTQxzRMKSfP4DzVuu0iZCfNHIZofxJsXjGqzTcT8Y5pwFEjSNoCqYhGqIhGjINSAmhXJpgqnHye+LJ1/RfvCfySurgkBUwijPrQkJDtLjT4m7sOCNLTmr5/IGo3/j+vcrPyAJYMq2tRYI3PUaeashTgoy0gGWT7iwQtgFtBw+rxLILtTQrgWAY4zl+AgMxS+grW/aug1k17GtjVEmcLghWselRDjHnY8gexSxXTLpHMVuX/d/9fiPRywiANUrrAIA25B3Ss2rZ+5T8Brz5/t3XoN9MvCc8R4VwW+Rfttde73YQBF7U6VIKiZdu92rSAYgDUEJgEN/sAQddRk0iDiByJSNQMA4EfTCJOICJukuAnjudCwkQxAXEEnciGICgJAUoTxeINBehfpx7SYs7rVaU9i3AAAvkGLkhnt+yAAAAAElFTkSuQmCC') no-repeat left -1px;
+				background-position: left -26px;
+			}
+			#Controller input[type=checkbox]{
+				width: 25px;
+				opacity: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="main">
+			<div id="Controller" >
+				<label for="isDraw-line" class="checkbox" :class="isDraw ? 'selected':''">
+					<input type="checkbox" v-model="isDraw" :checked="isDraw" id="isDraw-line"/>
+					显示走势折线
+				</label>
+				<label for="Auxiliary-line" class="checkbox" :class="Auxiliary ? 'selected':''">
+					<input type="checkbox" v-model="Auxiliary" id="Auxiliary-line" :checked="Auxiliary"/>
+					显示辅助线
+				</label>
+				<label for="isMissing-line" class="checkbox" :class="isMissing ? 'selected':''">
+					<input type="checkbox" v-model="isMissing" :checked="isMissing" id="isMissing-line"/>
+					显示遗漏期
+				</label>
+			</div>
+			<table id="table" border="0" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th rowspan="2">期数</th>
+						<th rowspan="2" colspan="10">开奖号码</th>
+						<th colspan="10" v-for="(item,i) in title">{{item}}</th>
+					</tr>
+					<tr>
+						<th class="grid" v-for="(item,i) in cycle" :class="item == title.length ? 'border-right':''">{{item}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(val,index) in result" :class="[index % 2 == 0 ? 'odd':'even',index % 5 == 0? 'border-top':'', Auxiliary ? 'Auxline':'']">
+						<th>{{val.PERIODS_NO}}</th>
+						<td class="number" v-for="(key,eq) in val.OPEN_CODE.split(',')">
+							<span class="ball">{{key}}</span>
+						</td>
+						<td v-for="(item,i) in cycle" v-if="i <= 9" class="col-1" :class="[item == title.length ? 'border-right':'']">
+							<span class="col-span-1" :class="[temp[index][0] == item ? 'same':'',isMissing ? '':'Transparent']">{{item}}</span>
+						</td>
+						<td v-for="(item,i) in cycle" v-if="i <= 9" class="col-2" :class="[item == title.length ? 'border-right':'']">
+							<span class="col-span-2" :class="[temp[index][1] == item ? 'same':'',isMissing ? '':'Transparent']">{{item}}</span>
+						</td>
+						<td v-for="(item,i) in cycle" v-if="i <= 9" class="col-3" :class="[item == title.length ? 'border-right':'']">
+							<span class="col-span-3" :class="[temp[index][2] == item ? 'same':'',isMissing ? '':'Transparent']">{{item}}</span>
+						</td>
+						<td v-for="(item,i) in cycle" v-if="i <= 9" class="col-4" :class="[item == title.length ? 'border-right':'']">
+							<span class="col-span-4" :class="[temp[index][3] == item ? 'same':'',isMissing ? '':'Transparent']">{{item}}</span>
+						</td>
+						<td v-for="(item,i) in cycle" v-if="i <= 9" class="col-5" :class="[item == title.length ? 'border-right':'']">
+							<span class="col-span-5" :class="[temp[index][4] == item ? 'same':'',isMissing ? '':'Transparent']">{{item}}</span>
+						</td>
+						<td v-for="(item,i) in cycle" v-if="i <= 9" class="col-6" :class="[item == title.length ? 'border-right':'']">
+							<span class="col-span-6" :class="[temp[index][5] == item ? 'same':'',isMissing ? '':'Transparent']">{{item}}</span>
+						</td> 
+						<td v-for="(item,i) in cycle" v-if="i <= 9" class="col-7" :class="[item == title.length ? 'border-right':'']">
+							<span class="col-span-7" :class="[temp[index][6] == item ? 'same':'',isMissing ? '':'Transparent']">{{item}}</span>
+						</td>
+						<td v-for="(item,i) in cycle" v-if="i <= 9" class="col-8" :class="[item == title.length ? 'border-right':'']">
+							<span class="col-span-8" :class="[temp[index][7] == item ? 'same':'',isMissing ? '':'Transparent']">{{item}}</span>
+						</td>
+						<td v-for="(item,i) in cycle" v-if="i <= 9" class="col-9" :class="[item == title.length ? 'border-right':'']">
+							<span class="col-span-9" :class="[temp[index][8] == item ? 'same':'',isMissing ? '':'Transparent']">{{item}}</span>
+						</td>
+						<td v-for="(item,i) in cycle" v-if="i <= 9" class="col-10" :class="[item == title.length ? 'border-right':'']">
+							<span class="col-span-10" :class="[temp[index][9] == item ? 'same':'',isMissing ? '':'Transparent']">{{item}}</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="chart_svg" id="chart_svg"></div>
+		</div>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.3.2/vue.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.3/svg.min.js"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: '#main',
+				data: {
+					title: ['冠军', '亚军', '季军', '第四名', '第五名', '第六名', '第七名', '第八名', '第九名', '第十名'],
+					result: [],
+					temp: [],
+					initData:{},
+					svgObject:null,			//svg对象
+					Auxiliary:true,			//是否显示辅助线
+					isDraw:true,			//是否显示走势线
+					isMissing:true,			//是否显示遗漏
+				},
+				methods: {
+					init() {
+						const that = this;
+						$.getJSON('./json/res.json', function(res) {
+							that.result = res;
+							var sort = [];
+							res.forEach(ele => {
+								sort = ele.OPEN_CODE.split(',');
+								that.temp.push(sort);
+							})
+						})
+					},
+					draw(isDraw) {
+						//console.log(document.getElementById('table').offsetHeight)
+						
+						this.svgObject = SVG('chart_svg').size(document.getElementById('table').offsetWidth, document.getElementById('table').offsetHeight);
+						var line1 = this.svgSave(document.querySelectorAll('.col-span-1.same'));
+						var line2 = this.svgSave(document.querySelectorAll('.col-span-2.same'));
+						var line3 = this.svgSave(document.querySelectorAll('.col-span-3.same'));
+						var line4 = this.svgSave(document.querySelectorAll('.col-span-4.same'));
+						var line5 = this.svgSave(document.querySelectorAll('.col-span-5.same'));
+						var line6 = this.svgSave(document.querySelectorAll('.col-span-6.same'));
+						var line7 = this.svgSave(document.querySelectorAll('.col-span-7.same'));
+						var line8 = this.svgSave(document.querySelectorAll('.col-span-8.same'));
+						var line9 = this.svgSave(document.querySelectorAll('.col-span-9.same'));
+						var line10 = this.svgSave(document.querySelectorAll('.col-span-10.same'));
+						
+						this.svgObject.polyline(line1).fill('none').stroke({
+							width: 1,
+							color: '#499495',
+							opacity: isDraw ? 1 : 0
+						});
+						this.svgObject.polyline(line2).fill('none').stroke({
+							width: 1,
+							color: '#cc7e7e',
+							opacity: isDraw ? 1 : 0
+						});
+						this.svgObject.polyline(line3).fill('none').stroke({
+							width: 1,
+							color: '#499495',
+							opacity: isDraw ? 1 : 0
+						});
+						this.svgObject.polyline(line4).fill('none').stroke({
+							width: 1,
+							color: '#cc7e7e',
+							opacity: isDraw ? 1 : 0
+						});
+						this.svgObject.polyline(line5).fill('none').stroke({
+							width: 1,
+							color: '#499495',
+							opacity: isDraw ? 1 : 0
+						});
+						this.svgObject.polyline(line6).fill('none').stroke({
+							width: 1,
+							color: '#cc7e7e',
+							opacity: isDraw ? 1 : 0
+						});
+						this.svgObject.polyline(line7).fill('none').stroke({
+							width: 1,
+							color: '#499495',
+							opacity: isDraw ? 1 : 0
+						});
+						this.svgObject.polyline(line8).fill('none').stroke({
+							width: 1,
+							color: '#cc7e7e',
+							opacity: isDraw ? 1 : 0
+						});
+						this.svgObject.polyline(line9).fill('none').stroke({
+							width: 1,
+							color: '#499495',
+							opacity: isDraw ? 1 : 0
+						});
+						this.svgObject.polyline(line10).fill('none').stroke({
+							width: 1,
+							color: '#cc7e7e',
+							opacity: isDraw ? 1 : 0
+						});
+					},
+					svgSave(arr){
+						var pos = [];
+						for(var i = 0; i < arr.length; i++){
+							var temp = [];
+							temp.push(this.getPosition(arr[i], 'left'));
+							temp.push(this.getPosition(arr[i], 'top'));
+							pos.push(temp);
+						}
+						return pos;
+					},
+					getPosition(ele,name){
+						name = name.toLowerCase().replace("left", "Left").replace("top", "Top");
+						var offset = 'offset' + name;
+						var offsetWH = name == 'Left' ? 'offsetWidth' : 'offsetHeight';
+						var actualLeft = ele[offset];
+						var current = ele.offsetParent;
+						if(current == 'table#table.table') {
+							current = null;
+						}
+						while(current !== null) {
+							actualLeft += current[offset];
+							current = current.offsetParent;
+						}
+						return actualLeft + (ele[offsetWH] / 2);
+					}
+				},
+				mounted() {
+					const that = this;
+					this.init();
+					
+					window.onload = function(){
+						that.draw(that.isDraw);
+					}
+					
+				},
+				computed: {
+					cycle() {
+						var arr = [];
+						for(let i = 0; i < this.title.length; i++) {
+							for(let j = 1; j <= this.title.length; j++) {
+								arr.push(j);
+							}
+						}
+						return arr;
+					},
+				},
+				watch:{
+					isDraw(val){
+						this.svgObject.remove();
+						this.draw(this.isDraw);
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>
