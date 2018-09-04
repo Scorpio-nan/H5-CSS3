@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:v=xmlns:v>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>北京PK拾[官] - 开奖结果</title>
+		
+		<link rel="stylesheet" type="text/css" href="css/result.css"/>
+		<link rel="stylesheet" type="text/css" href="css/res.css"/>
+		<script src="Script/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="Script/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			var GameCode = 'PK10';
+		</script>
+		<script>
+			var gamelist = [{
+				gamename: '北京PK拾[官]',
+				id: '29'
+			}, {
+				gamename: '香港六合彩[信]',
+				id: '1'
+			}, {
+				gamename: '广东11选5[信]',
+				id: '4'
+			}, {
+				gamename: '广东快十[信]',
+				id: '5'
+			}, {
+				gamename: '广西快十[信]',
+				id: '6'
+			}, {
+				gamename: '重庆时时彩[信]',
+				id: '7'
+			}, {
+				gamename: '新疆时时彩[信]',
+				id: '10'
+			}, {
+				gamename: '幸运农场[信]',
+				id: '13'
+			}, {
+				gamename: '北京PK拾[信]',
+				id: '15'
+			}, {
+				gamename: '江苏快三[信]',
+				id: '22'
+			}, {
+				gamename: '重庆时时彩[官]',
+				id: '26'
+			}, {
+				gamename: '北京快乐8[官]',
+				id: '28'
+			}, {
+				gamename: '福彩3D[官]',
+				id: '30'
+			}, {
+				gamename: '山东11选5[官]',
+				id: '32'
+			}, {
+				gamename: '江苏快三[官]',
+				id: '39'
+			}, {
+				gamename: '新疆时时彩[官]',
+				id: '40'
+			}, {
+				gamename: '排列三、五[官]',
+				id: '44'
+			}, {
+				gamename: '广东11选5[官]',
+				id: '45'
+			}, {
+				gamename: '江西11选5[官]',
+				id: '46'
+			}, {
+				gamename: '黑龙江11选5[官]',
+				id: '50'
+			}, {
+				gamename: '韩式1.5分彩[官]',
+				id: '51'
+			}, {
+				gamename: '韩式1.5分彩[信]',
+				id: '53'
+			}, {
+				gamename: '北京时时彩[信]',
+				id: '55'
+			}, {
+				gamename: '北京时时彩[官]',
+				id: '56'
+			}, {
+				gamename: '台湾宾果[官]',
+				id: '59'
+			}, {
+				gamename: '加拿大3.5分[信]',
+				id: '60'
+			}, {
+				gamename: '加拿大3.5分[官]',
+				id: '61'
+			}, {
+				gamename: '江苏11选5[官]',
+				id: '62'
+			}, {
+				gamename: '江苏11选5[信]',
+				id: '63'
+			}, {
+				gamename: '澳洲快乐8[官]',
+				id: '64'
+			}, {
+				gamename: '澳洲3分彩[官]',
+				id: '68'
+			}, {
+				gamename: '澳洲3分彩[信]',
+				id: '69'
+			}, {
+				gamename: '上海11选5[官]',
+				id: '72'
+			}, {
+				gamename: '上海11选5[信]',
+				id: '73'
+			}, {
+				gamename: 'QQ分分彩[官]',
+				id: '74'
+			}, {
+				gamename: 'QQ分分彩[信]',
+				id: '75'
+			}, {
+				gamename: '上海时时乐[官]',
+				id: '77'
+			}, {
+				gamename: '腾讯分分彩[官]',
+				id: '78'
+			}, {
+				gamename: '腾讯分分彩[信]',
+				id: '79'
+			}, {
+				gamename: '安徽快三[官]',
+				id: '80'
+			}, {
+				gamename: '安徽快三[信]',
+				id: '81'
+			}, {
+				gamename: '河北快三[信]',
+				id: '82'
+			}, {
+				gamename: '河北快三[官]',
+				id: '83'
+			}, {
+				gamename: '湖北快三[官]',
+				id: '86'
+			}, {
+				gamename: '湖北快三[信]',
+				id: '87'
+			}, {
+				gamename: '上海快三[官]',
+				id: '88'
+			}, {
+				gamename: '上海快三[信]',
+				id: '89'
+			}, {
+				gamename: '广西快三[官]',
+				id: '90'
+			}, {
+				gamename: '广西快三[信]',
+				id: '91'
+			}, {
+				gamename: '东京1.5分彩[信]',
+				id: '92'
+			}, {
+				gamename: '东京1.5分彩[官]',
+				id: '93'
+			}, {
+				gamename: '幸运飞艇[信]',
+				id: '96'
+			}, {
+				gamename: '幸运飞艇[官]',
+				id: '97'
+			}, {
+				gamename: '幸运28[信]',
+				id: '100'
+			}, {
+				gamename: '东京28[信]',
+				id: '101'
+			}, {
+				gamename: '加拿大28[信]',
+				id: '104'
+			}, {
+				gamename: '澳洲28[信]',
+				id: '105'
+			}, {
+				gamename: '极速六合彩[信]',
+				id: '113'
+			}, {
+				gamename: '极速分分彩[信]',
+				id: '114'
+			}, {
+				gamename: '极速分分彩[官]',
+				id: '115'
+			}, {
+				gamename: '北京快3[信]',
+				id: '116'
+			}, {
+				gamename: '北京快3[官]',
+				id: '117'
+			}, {
+				gamename: '凤凰分分彩[信]',
+				id: '122'
+			}, {
+				gamename: '凤凰分分彩[官]',
+				id: '123'
+			}, {
+				gamename: '凤凰1.5分彩[信]',
+				id: '124'
+			}, {
+				gamename: '凤凰1.5分彩[官]',
+				id: '125'
+			}, {
+				gamename: '凤凰三分彩[信]',
+				id: '126'
+			}, {
+				gamename: '凤凰三分彩[官]',
+				id: '127'
+			}, {
+				gamename: '凤凰时时彩[信]',
+				id: '128'
+			}, {
+				gamename: '凤凰时时彩[官]',
+				id: '129'
+			}, {
+				gamename: '极速快三[信]',
+				id: '140'
+			}, {
+				gamename: '极速快三[官]',
+				id: '141'
+			}, {
+				gamename: '凤凰快三[信]',
+				id: '142'
+			}, {
+				gamename: '凤凰快三[官]',
+				id: '143'
+			}, {
+				gamename: '1分PK拾[信]',
+				id: '146'
+			}, {
+				gamename: '3分PK拾[信]',
+				id: '147'
+			}, {
+				gamename: '5分PK拾[信]',
+				id: '148'
+			}, {
+				gamename: '1分PK拾[官]',
+				id: '149'
+			}, {
+				gamename: '3分PK拾[官]',
+				id: '150'
+			}, {
+				gamename: '5分PK拾[官]',
+				id: '151'
+			}];
+		</script>
+		<style>
+			.result-body span.missing01,
+			.result-body span.missing02 {
+				color: #999999;
+			}
+			
+			.result-con table {
+				table-layout: fixed;
+				border-spacing: 0;
+				border: #ddd solid;
+				border-width: 0 0 1px 1px;
+			}
+			
+			.result-con table td,
+			.result-con table th {
+				border: #ddd solid;
+				border-width: 1px 1px 0 0;
+			}
+			
+			.result-con td.col-line,
+			.result-con th.col-line {
+				border-right: 1px solid #ff0000;
+			}
+			
+			.result-con tr.row-line td,
+			.result-con tr.row-line th {
+				border-bottom: 1px solid #ff0000;
+			}
+			
+			.result-con .txt-sm {
+				font-size: 11px;
+			}
+			
+			.result-con .txt-xs {
+				font-size: 10px;
+			}
+			
+			.result-con .ball01 {
+				background-image: none;
+				background-color: #2B9FF8;
+				border-radius: 50%;
+			}
+			
+			.result-con .ball02 {
+				background-image: none;
+				background-color: #E30D0D;
+				border-radius: 50%;
+			}
+			
+			.result-con .ball-blue {
+				background-image: none;
+				background-color: #00A0E9;
+				border-radius: 50%;
+			}
+			
+			.result-con .ball-orange {
+				background-image: none;
+				background-color: #FF6501;
+				border-radius: 50%;
+			}
+			
+			.result-con .ball-red {
+				background-image: none;
+				background-color: #e30d0d;
+				border-radius: 50%;
+			}
+			
+			.result-head {
+				position: static;
+				width: auto;
+			}
+			
+			.result-head .result-head-in {
+				width: 1472px;
+				background-color: #2d2d2d;
+			}
+			
+			.result-body {
+				padding-top: 0px;
+			}
+			
+			.result-head-in div {
+				height: 45px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div id="VueRoot">
+			<div class="result-head">
+				<div class="result-head-in">
+					<div class="game">
+						<label>{{gameInfo.gamename}}</label>
+						<select class="gamelist" v-model="gameID" v-on:change="switchGame">
+							<option v-for="item in gameList" v-bind:value="item.id">{{item.gamename}}</option>
+						</select>
+					</div>
+					<div class="checkbox-box" data-bind="visible:gameinfo.totalTpl">
+						标注形式选择<label class="checkbox" v-bind:class="{select:polyline}" for="polyline-ck">
+                        <input style="opacity:0;filter:alpha(opacity=0);margin-left:-12px;"
+                               type="checkbox" v-model="polyline" id="polyline-ck" />显示走势折线
+                    </label>
+						<label class="checkbox" v-bind:class="{select:displayTemperature}" for="displayTemperature-ck">
+                        <input style="opacity:0;filter:alpha(opacity=0);margin-left:-12px;"
+                               type="checkbox" v-model="displayTemperature" id="displayTemperature-ck" />显示号温
+                    </label>
+						<label class="checkbox" v-bind:class="{select:displayMissingFloor}" for="displayMissingFloor-ck">
+                        <input style="opacity:0;filter:alpha(opacity=0);margin-left:-12px;"
+                               type="checkbox" v-model="displayMissingFloor" id="displayMissingFloor-ck" />显示遗漏分层
+                    </label>
+						<label class="checkbox" v-bind:class="{select:displayMissing}" v-show="canDisplayMissing" for="displayMissing-ck">
+                        <input style="opacity:0;filter:alpha(opacity=0);margin-left:-12px;"
+                               type="checkbox" v-model="displayMissing" id="displayMissing-ck" />显示遗漏
+                    </label>
+						<label class="checkbox" v-bind:class="{select:displayStatistics}" for="displayStatistics-ck">
+                        <input style="opacity:0;filter:alpha(opacity=0);margin-left:-12px;"
+                               type="checkbox" v-model="displayStatistics" id="displayStatistics-ck" />显示统计
+                    </label>
+						<label class="checkbox" v-bind:class="{select:displayAssist}" for="displayAssist-ck">
+                        <input style="opacity:0;filter:alpha(opacity=0);margin-left:-12px;"
+                               type="checkbox" v-model="displayAssist" id="displayAssist-ck" />显示辅助线
+                    </label>
+					</div>
+					<div class="period">
+						<a href="#" v-on:click="tab(30)" v-bind:class="{active:pageSize==30}">最近30期</a>
+						<a href="#" v-on:click="tab(50)" v-bind:class="{active:pageSize==50}">最近50期</a>
+						<a href="#" v-on:click="tab(100)" v-bind:class="{active:pageSize==100}">最近100期</a>
+						<a href="#" v-on:click="tab(200)" v-bind:class="{active:pageSize==200}">最近200期</a>
+						<a href="#" v-on:click="tab(300)" v-bind:class="{active:pageSize==300}">最近300期</a>
+					</div>
+				</div>
+			</div>
+			<div class="result-body">
+				<div v-show="isLoading" style="margin:10%;">正在获取数据中...</div>
+				<div v-show="!isLoading" class="result-con" style="min-width:initial;position:relative;display:none">
+					<div v-show="polyline">
+						<div id="LINE-CONTAINER" class="line-container">
+
+						</div>
+					</div>
+					<table style="position:relative">
+						<thead>
+							<tr>
+								<th rowspan="2">期数</th>
+								<th rowspan="2" v-bind:colspan="gameInfo.ballPos" class="col-line">开奖号码</th>
+								<th v-bind:colspan="gameInfo.ballCount" v-for="(d,i) in gameInfo.titles" v-bind:class="{'col-line':i!=gameInfo.ballPos}">{{d}}</th>
+							</tr>
+							<tr is="my-th" v-bind:ball-pos="gameInfo.ballPos" v-bind:ball-count="gameInfo.ballCount" v-bind:start="gameInfo.start" v-bind:is-bottom="false"></tr>
+						</thead>
+
+						<tbody v-if="list.length > 0" id="trend-body">
+							<tr v-for="(item, idx) in list" v-bind:class="{'blue-ball':idx%2===0,  'yellow-ball': idx%2!==0, 'row-line': displayAssist && idx % 5 == 4}">
+								<th>{{item.period}}</th>
+								<td v-for="(d, ri) in item.resultArr" v-bind:class="{'col-line':ri==item.resultArr.length- 1}"><span class="ball">{{d}}</span></td>
+								<td v-for="(cm, ci) in item.continuousMissing" v-bind:id="ci == 0 && idx==0?'first-td':''" v-bind:class="{'col-line':(ci + 1)%gameInfo.ballCount==0}" v-bind:style="{backgroundColor: displayMissingFloor?cm.bgColor:''}">
+									<span v-bind:class="[cm.className,(['','txt-sm','txt-xs'][getNumTxt(cm).length-1]),((cm.count == 0&&displayTemperature)?temperature[ci]:'')]">{{getNumTxt(cm)}}</span>
+								</td>
+								<td v-for="(cm, ci) in item.numberDistributions">
+									<span class="base-ball" v-bind:class="{'ball-grey':cm.count==1, 'ball-multip': cm.count>1, 'missing02':cm.count==0}">{{cm.count!=0?cm.num:(canDisplayMissing&&displayMissing?cm.missing:'')}}</span>
+								</td>
+							</tr>
+						</tbody>
+						<tbody v-if="list.length<=0">
+							<tr>
+								<td v-bind:colspan="gameInfo.ballCount * (gameInfo.ballPos + 2) + 2">没有符合条件的记录</td>
+							</tr>
+						</tbody>
+						<tbody v-if="list.length > 0 && displayStatistics">
+							<tr v-for="(item, idx) in statisticsInfos" v-bind:style="{color:item.color}">
+								<th v-bind:colspan="gameInfo.ballPos + 1" class="col-line">{{item.title}}</th>
+								<td v-for="(d,i) in item.data" v-bind:class="{'col-line':(((i + 1)%gameInfo.ballCount==0) && (i!=item.data.length - 1)),'txt-sm':String(d).length==2,'txt-xs':String(d).length==3}">{{d}}</td>
+							</tr>
+						</tbody>
+						<thead>
+							<tr is="my-th" v-bind:ball-pos="gameInfo.ballPos" v-bind:ball-count="gameInfo.ballCount" v-bind:start="gameInfo.start" v-bind:is-bottom="true"></tr>
+							<tr>
+								<th v-bind:colspan="gameInfo.ballCount" v-for="(d,i) in gameInfo.titles" v-bind:class="{'col-line':i!=gameInfo.ballPos}">{{d}}</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		<script id="th-template" type="text/html">
+			<tr>
+				<th v-if="isBottom" rowspan="2">期号</th>
+				<th v-if="isBottom" v-bind:colspan="ballPos" rowspan="2" class="col-line">开奖号码</th>
+				<template v-for="m in (ballPos+1)">
+					<th v-for="n in ballCount" v-bind:class="{'col-line':n==ballCount && m!= ballPos+1}">{{n - 1 + start}}</th>
+				</template>
+			</tr>
+		</script>
+		<script src="Script/result.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

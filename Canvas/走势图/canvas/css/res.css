@@ -1,0 +1,27 @@
+body {background:#fff;}
+
+.fc-red{color:#c9514e;}
+.fc-blue{color:#1a89d8;}
+
+.checkbox{background:url(../images/checkbox3.png?eed96b652c) no-repeat left top;}
+.checkbox.select{background-position:left bottom;}
+
+.result-head{background:#2d2d2d;}
+.result-head-in{color:#fff;}
+.result-head-in .period a{color:#fff;}
+.result-head-in .period a:hover,.period a.active{background:#cf271e;}
+.result-head-in .form input {background-color:#fff;border:none;}
+.result-head-in .form  .btn{background:#cf271e;color:#fff;}
+
+.result-con table{border-collapse:separate;border-spacing:1px;border-color:#f00;border-width:0;background:#ddd;}
+.result-con thead th{background:#efefef;border:1px #fff solid;}
+.result-con tbody th{background:#fff;}
+.result-con td{background:#fff;}
+
+.result-con .ball01,.result-con .ball02,.result-con .ball03,.result-con .ball{color:#fff;background:url(../images/ball.png?4527132864) no-repeat;}
+.result-con .ball01{background-position:0 0;}
+.result-con .ball02{background-position:0 -16px;}
+.result-con .ball03{background-position:0 -32px;}
+
+.result-con .blue-ball .ball{background-position:0 0;}
+.result-con .yellow-ball .ball{background-position:0 -32px;}
