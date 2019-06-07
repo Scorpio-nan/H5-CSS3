@@ -1,0 +1,441 @@
+<!doctype html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>后台登录-X-admin2.2</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+        content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="./dist/css/layui.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
+    <script src="./dist/layui.js"></script>
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script src="./js/Http.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <script>
+        // 是否开启刷新记忆tab功能
+        // var is_remember = false;
+
+    </script>
+</head>
+
+<body class="index">
+    <!-- 顶部开始 -->
+    <div class="container">
+        <div class="logo">
+            <a href="./index.html">牛博科技管理后台</a></div>
+        <div class="left_open">
+            <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
+        </div>
+        <ul class="layui-nav left fast-add" lay-filter="">
+            <li class="layui-nav-item">
+                <a href="javascript:;">+新增</a>
+                <dl class="layui-nav-child">
+                    <!-- 二级菜单 -->
+                    <dd>
+                        <a onclick="xadmin.open('最大化','http://www.baidu.com','','',true)">
+                            <i class="iconfont">&#xe6a2;</i>弹出最大化</a></dd>
+                    <dd>
+                        <a onclick="xadmin.open('弹出自动宽高','http://www.baidu.com')">
+                            <i class="iconfont">&#xe6a8;</i>弹出自动宽高</a></dd>
+                    <dd>
+                        <a onclick="xadmin.open('弹出指定宽高','http://www.baidu.com',500,300)">
+                            <i class="iconfont">&#xe6a8;</i>弹出指定宽高</a></dd>
+                    <dd>
+                        <a onclick="xadmin.add_tab('在tab打开','member-list.html')">
+                            <i class="iconfont">&#xe6b8;</i>在tab打开</a></dd>
+                    <dd>
+                        <a onclick="xadmin.add_tab('在tab打开刷新','member-del.html',true)">
+                            <i class="iconfont">&#xe6b8;</i>在tab打开刷新</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav right" lay-filter="">
+            <li class="layui-nav-item">
+                <a href="javascript:;">admin</a>
+                <dl class="layui-nav-child">
+                    <!-- 二级菜单 -->
+                    <dd>
+                        <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a></dd>
+                    <dd>
+                        <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+                    <dd>
+                        <a href="./login.html">退出</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item to-index">
+                <a href="/">前台首页</a></li>
+        </ul>
+    </div>
+    <!-- 顶部结束 -->
+    <!-- 中部开始 -->
+    <!-- 左侧菜单开始 -->
+    <div class="left-nav">
+        <div id="side-nav">
+            <ul id="nav">
+                <li v-for="(item,index) in menuList">
+                    <a href="javascript:;">
+                            <i class="iconfont left-nav-li" :lay-tips="item.tab">&#xe723;</i>
+                            <cite>{{item.tab}}</cite>
+                            <i class="iconfont nav_right" v-html="item.icon"></i></a>
+                    <ul class="sub-menu">
+                        <li v-for="(key,val) in item.children">
+                            <a @click="winOpen(key.tab,key.html,key.isFrame)">
+                                    <i class="iconfont" v-html="key.icon"></i>
+                                    <cite>{{key.tab}}</cite></a>
+                            <ul class="sub-menu">
+                                <li v-for="(three,ind) in key.children">
+                                    <a @click="winOpen(three.tab,three.html,three.isFrame)">
+                                            <i class="iconfont" v-html="three.icon"></i>
+                                            <cite>{{three.tab}}</cite></a>
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <div class="x-slide_left"></div> -->
+    <!-- 左侧菜单结束 -->
+    <!-- 右侧主体开始 -->
+    <div class="page-content">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+            <ul class="layui-tab-title">
+                <li class="home">
+                    <i class="layui-icon">&#xe68e;</i>我的桌面</li>
+            </ul>
+            <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
+                <dl>
+                    <dd data-type="this">关闭当前</dd>
+                    <dd data-type="other">关闭其它</dd>
+                    <dd data-type="all">关闭全部</dd>
+                </dl>
+            </div>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                </div>
+            </div>
+            <div id="tab_show"></div>
+        </div>
+    </div>
+    <div class="page-content-bg"></div>
+    <style id="theme_style"></style>
+    <!-- 右侧主体结束 -->
+    <!-- 中部结束 -->
+    <script>
+        var vm = new Vue({
+            el: '.left-nav',
+            data: {
+                menuList:[]
+            },
+            mounted: function () {
+                var that = this;
+                $http.menuList('', function (res) {
+                    console.log(res);
+                    try {
+                        that.menuList = res;
+                    } catch (error) {
+                        console.log('接口没提供数据过来啊~');
+                    }
+                })
+            },
+            methods:{
+                winOpen(tab,html,isFrame){
+                    if(html == '') return;
+                    if(!isFrame){
+                        xadmin.open(tab,html,1080,720);
+                    }else{
+                        xadmin.add_tab(tab,html);
+                    }
+                }
+            }
+        })
+
+    </script>
+    <script>
+        if (!/^http(s*):\/\//.test(location.href)) {
+            alert('请部署到localhost上查看该演示');
+        }
+
+        layui.use('layim', function (layim) {
+
+            //演示自动回复
+            var autoReplay = [
+                '您好，我现在有事不在，一会再和您联系。',
+                '你没发错吧？face[微笑] ',
+                '洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ',
+                '你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ',
+                'face[威武] face[威武] face[威武] face[威武] ',
+                '<（@￣︶￣@）>',
+                '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。',
+                'face[黑线]  你慢慢说，别急……',
+                '(*^__^*) face[嘻嘻] ，是贤心吗？'
+            ];
+
+            //基础配置
+            layim.config({
+
+                //初始化接口
+                init: {
+                    url: 'json/getList.json',
+                    data: {}
+                }
+
+                //或采用以下方式初始化接口
+                /*
+                ,init: {
+                  mine: {
+                    "username": "LayIM体验者" //我的昵称
+                    ,"id": "100000123" //我的ID
+                    ,"status": "online" //在线状态 online：在线、hide：隐身
+                    ,"remark": "在深邃的编码世界，做一枚轻盈的纸飞机" //我的签名
+                    ,"avatar": "a.jpg" //我的头像
+                  }
+                  ,friend: []
+                  ,group: []
+                }
+                */
+
+                //查看群员接口
+                ,
+                members: {
+                    url: 'json/getMembers.json',
+                    data: {}
+                }
+
+                //上传图片接口
+                ,
+                uploadImage: {
+                    url: '/upload/image' //（返回的数据格式见下文）
+                        ,
+                    type: '' //默认post
+                }
+
+                //上传文件接口
+                ,
+                uploadFile: {
+                    url: '/upload/file' //（返回的数据格式见下文）
+                        ,
+                    type: '' //默认post
+                },
+
+                //开启聊天工具栏音频
+                isAudio: true,
+
+                //开启聊天工具栏视频
+                isVideo: true,
+
+                //扩展工具栏
+                tool: [{
+                    alias: 'code',
+                    title: '代码',
+                    icon: '&#xe64e;'
+                }],
+
+                //是否简约模式（若开启则不显示主面板）
+                //brief: true,
+
+                //自定义主面板最小化时的标题
+                //title: 'WebIM',
+
+                //主面板相对浏览器右侧距离
+                //right: '100px',
+
+                //聊天面板最小化时相对浏览器右侧距离
+                //minRight: '90px',
+
+                //1-5 设置初始背景
+                initSkin: '5.jpg',
+
+                //新增皮肤
+                //skin: ['aaa.jpg'],
+
+                //是否开启好友
+                //isfriend: false,
+
+                //是否开启群组
+                //isgroup: false,
+
+                //是否始终最小化主面板，默认false
+                //min: true,
+
+                //声音提醒，默认开启，声音文件为：default.mp3
+                //voice: false,
+
+                //是否开启桌面消息提醒，默认false
+                notice: true,
+
+                //消息盒子页面地址，若不开启，剔除该项即可
+                msgbox: layui.cache.dir + 'css/modules/layim/html/msgbox.html',
+
+                //发现页面地址，若不开启，剔除该项即可
+                find: layui.cache.dir + 'css/modules/layim/html/find.html',
+
+                //聊天记录页面地址，若不开启，剔除该项即可
+                chatLog: layui.cache.dir + 'css/modules/layim/html/chatlog.html'
+            });
+
+            /*
+            layim.chat({
+              name: '在线客服-小苍'
+              ,type: 'kefu'
+              ,avatar: 'http://tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg'
+              ,id: -1
+            });
+            layim.chat({
+              name: '在线客服-心心'
+              ,type: 'kefu'
+              ,avatar: 'http://tva1.sinaimg.cn/crop.219.144.555.555.180/0068iARejw8esk724mra6j30rs0rstap.jpg'
+              ,id: -2
+            });
+            layim.setChatMin();*/
+
+            //监听在线状态的切换事件
+            layim.on('online', function (data) {
+                //console.log(data);
+            });
+
+            //监听签名修改
+            layim.on('sign', function (value) {
+                //console.log(value);
+            });
+
+            //监听自定义工具栏点击，以添加代码为例
+            layim.on('tool(code)', function (insert) {
+                layer.prompt({
+                    title: '插入代码',
+                    formType: 2,
+                    shade: 0
+                }, function (text, index) {
+                    layer.close(index);
+                    insert('[pre class=layui-code]' + text + '[/pre]'); //将内容插入到编辑器
+                });
+            });
+
+            //监听layim建立就绪
+            layim.on('ready', function (res) {
+
+                //console.log(res.mine);
+
+                //模拟消息盒子有新消息，实际使用时，一般是动态获得
+                layim.msgbox(5);
+
+                //添加好友（如果检测到该socket）
+                layim.addList({
+                    type: 'group',
+                    avatar: "http://tva3.sinaimg.cn/crop.64.106.361.361.50/7181dbb3jw8evfbtem8edj20ci0dpq3a.jpg",
+                    groupname: 'Angular开发',
+                    id: "12333333",
+                    members: 0
+                });
+                layim.addList({
+                    type: 'friend',
+                    avatar: "http://tp2.sinaimg.cn/2386568184/180/40050524279/0",
+                    username: '冲田杏梨',
+                    groupid: 2,
+                    id: "1233333312121212",
+                    remark: "本人冲田杏梨将结束AV女优的工作"
+                });
+
+                setTimeout(function () {
+                    //接受消息（如果检测到该socket）
+                    layim.getMessage({
+                        username: "Hi",
+                        avatar: "http://qzapp.qlogo.cn/qzapp/100280987/56ADC83E78CEC046F8DF2C5D0DD63CDE/100",
+                        id: "10000111",
+                        type: "friend",
+                        content: "临时：" + new Date().getTime()
+                    });
+
+                    /*layim.getMessage({
+                      username: "贤心"
+                      ,avatar: "http://tp1.sinaimg.cn/1571889140/180/40030060651/1"
+                      ,id: "100001"
+                      ,type: "friend"
+                      ,content: "嗨，你好！欢迎体验LayIM。演示标记："+ new Date().getTime()
+                    });*/
+
+                }, 3000);
+            });
+
+            //监听发送消息
+            layim.on('sendMessage', function (data) {
+                var To = data.to;
+                //console.log(data);
+
+                if (To.type === 'friend') {
+                    layim.setChatStatus('<span style="color:#FF5722;">对方正在输入。。。</span>');
+                }
+
+                //演示自动回复
+                setTimeout(function () {
+                    var obj = {};
+                    if (To.type === 'group') {
+                        obj = {
+                            username: '模拟群员' + (Math.random() * 100 | 0),
+                            avatar: layui.cache.dir + 'images/face/' + (Math.random() * 72 |
+                                0) + '.gif',
+                            id: To.id,
+                            type: To.type,
+                            content: autoReplay[Math.random() * 9 | 0]
+                        }
+                    } else {
+                        obj = {
+                            username: To.name,
+                            avatar: To.avatar,
+                            id: To.id,
+                            type: To.type,
+                            content: autoReplay[Math.random() * 9 | 0]
+                        }
+                        layim.setChatStatus('<span style="color:#FF5722;">在线</span>');
+                    }
+                    layim.getMessage(obj);
+                }, 1000);
+            });
+
+            //监听查看群员
+            layim.on('members', function (data) {
+                //console.log(data);
+            });
+
+            //监听聊天窗口的切换
+            layim.on('chatChange', function (res) {
+                var type = res.data.type;
+                console.log(res.data.id)
+                if (type === 'friend') {
+                    //模拟标注好友状态
+                    //layim.setChatStatus('<span style="color:#FF5722;">在线</span>');
+                } else if (type === 'group') {
+                    //模拟系统消息
+                    layim.getMessage({
+                        system: true,
+                        id: res.data.id,
+                        type: "group",
+                        content: '模拟群员' + (Math.random() * 100 | 0) + '加入群聊'
+                    });
+                }
+            });
+
+
+
+        });
+
+    </script>
+</body>
+
+</html>
