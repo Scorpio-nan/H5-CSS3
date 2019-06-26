@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+	</head>
+	<body>
+		<div>
+			<button id="add" onclick="insert()">添加一条数据</button>
+			<button id="add" onclick="readAll()">查找所有数据</button>
+		</div>
+		<div>
+			<button id="add" onclick="removeFirstIndex()">删除第一条数据</button>
+			<button id="add" onclick="put()">修改主键为3的数据</button>
+		</div>
+		<div>
+			<button id="add" onclick="findByIndex()">通过索引查找数据</button>
+			<button id="add" onclick="FindDataLike()">模糊查询</button>
+		</div>
+		<script src="./db.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var TableName = null;
+			//console.log(DB);
+			var a = DB.create('Message',function(res){
+				console.log(res);
+				TableName = res.tableName;
+			});
+
+
+			function insert(){
+				var obj = {
+					userid:64,
+					data:[{
+						userid:9,
+						username:'王二麻子',
+						avator:'我随便写点什么可以吗?'
+					}],
+					createTime:new Date().getTime()
+				}
+				DB.insert(obj,function(res){
+					console.log(res);
+					readAll();
+				});
+			}
+			
+			function findByIndex(){
+				var key = 'id';
+				var val = 2;
+				DB.findDataCondition(TableName,key,val,function(res){
+					console.log(res);
+				})
+			}
+			
+			function readAll(){
+				DB.readAll(TableName,function(res){
+					console.log(res);
+				})
+			}
+			
+			function removeFirstIndex(){
+				DB.removeAll(function(res){
+					console.log(res);
+					readAll();
+				})
+			}
+			
+			function FindDataLike(){
+				DB.queryDataLike(TableName,'createTime','3266376',function(res){
+					console.log(res);
+				})
+			}
+
+			function put(){
+				var obj = {
+					id:3,
+					userid:64,
+					data:[{
+						userid:9,
+						username:'王二麻子-修改后的数据',
+						avator:'我随便写点什么可以吗?'
+					}],
+					createTime:new Date().getTime()
+				}
+				DB.update(obj,function(res){
+					console.log(res);
+					readAll();
+				})
+			}
+			
+			
+		</script>
+	</body>
+</html>
