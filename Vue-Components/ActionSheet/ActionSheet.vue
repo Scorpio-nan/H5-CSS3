@@ -100,29 +100,13 @@
 		}
 	}
 	
+	.fade-enter,
+	.fade-leave-active{
+	  opacity: 0;
+	}
+
+	.fade-leave-active,
 	.fade-enter-active {
-		animation: fade-in .5s;
-	}
-	
-	.fade-leave-active {
-		animation: fade-out .5s;
-	}
-	
-	@keyframes fade-in {
-		0% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 0.5;
-		}
-	}
-	
-	@keyframes fade-out {
-		0% {
-			opacity: 0.5;
-		}
-		100% {
-			opacity: 0;
-		}
+	  transition: opacity 300ms!important;
 	}
 </style>

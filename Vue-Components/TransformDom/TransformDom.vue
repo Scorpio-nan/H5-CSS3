@@ -74,30 +74,14 @@
 	 *	淡入淡出
 	 ***/
 	
-	.fadeIn-enter-active {
-		animation: fade-in .5s;
+	.fade-enter,
+	.fade-leave-active{
+	  opacity: 0;
 	}
-	
-	.fadeIn-leave-active {
-		animation: fade-out .5s;
-	}
-	
-	@keyframes fade-in {
-		0% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
-	
-	@keyframes fade-out {
-		0% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
+
+	.fade-leave-active,
+	.fade-enter-active {
+	  transition: opacity 300ms!important;
 	}
 	/*
 	 *  弹出
