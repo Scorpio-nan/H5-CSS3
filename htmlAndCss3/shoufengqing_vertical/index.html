@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>纯HTML和CSS实现垂直手风琴菜单列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f192dd;
+        }
+
+        .box {
+            margin: 100px auto;
+            width: 20%;
+            background-color: #2a9ead;
+        }
+
+        .box .box-item {
+            border-bottom: 1px solid #2980b9;
+            color: #eee;
+        }
+
+        .box .title {
+            padding: 10px;
+            background-color: #2a9ead;
+            cursor: pointer;
+        }
+
+        .box-item-content {
+            cursor: pointer;
+            height: 0;
+            overflow: hidden;
+            background-color: #1abc9c;
+            transition: .5s all;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            padding: 5px 15px;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+
+        ul li:hover {
+            background-color: #2980b9;
+        }
+
+        .box:hover .box-item:hover .box-item-content {
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="box-item">
+            <p class="title">账户</p>
+            <ul class="box-item-content">
+                <li>Account</li>
+                <li>Account</li>
+                <li>Account</li>
+            </ul>
+        </div>
+        <div class="box-item">
+            <p class="title">信息</p>
+            <ul class="box-item-content">
+                <li>Messages</li>
+                <li>Messages</li>
+                <li>Messages</li>
+            </ul>
+        </div>
+        <div class="box-item">
+            <p class="title">设置</p>
+            <ul class="box-item-content">
+                <li>Settings</li>
+                <li>Settings</li>
+                <li>Settings</li>
+            </ul>
+        </div>
+        <div class="box-item">
+            <p class="title">退出</p>
+            <ul class="box-item-content">
+                <li>Logout</li>
+                <li>Logout</li>
+                <li>Logout</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
