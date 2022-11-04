@@ -1,0 +1,1 @@
+{"plugins":["cordova-plugin-whitelist","cordova-plugin-fullscreen","cordova-plugin-inappbrowser","cordova-plugin-screen-orientation","eeschiavo-cordova-plugin-clipboard","es6-promise-plugin","cordova-plugin-splashscreen","cordova-hot-code-push-plugin"]}
