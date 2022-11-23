@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        margin: 0;
+    }
+
+    .wrap {
+        height: 600px;
+        overflow: auto;
+        width: 100%;
+        background-color: darksalmon;
+    }
+
+    .blank {
+        height: 200px;
+    }
+
+    .header {
+        height: 100px;
+        background-color: darkkhaki;
+    }
+
+    .container {
+        height: 1000px;
+        background-color: darkseagreen;
+    }
+
+    .fixed {
+        top: 0;
+        width: 100%;
+        position: fixed;
+    }
+</style>
+
+<body>
+    <div class="wrap">
+        <div class="blank"></div>
+        <div class="box">
+            <div class="header">这是要吸顶的</div>
+            <div class="container">这是内容</div>
+        </div>
+    </div>
+</body>
+<script>
+    let head = document.querySelector('.header');
+    let parent = document.querySelector('.wrap');
+    let top1 = head.offsetTop;
+    parent.addEventListener('scroll', function () {
+        console.log(top1, parent.scrollTop);
+        if (parent.scrollTop > top1) {
+            head.classList.add('fixed');
+        }
+        if (parent.scrollTop < top1 && Array.from(head.classList).indexOf('fixed') > -1) {
+            head.classList.remove('fixed');
+        }
+    });
+</script>
+
+</html>
