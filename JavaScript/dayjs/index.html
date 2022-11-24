@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1>这里是自定义的测试页面</h1>
+    </div>
+    <script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/dayjs/1.11.6/dayjs.min.js"></script>
+    <script>
+
+        var dayjsTool = {
+            /*
+             * 获取昨天的开始时间和结束时间
+             */
+            getYesToday(format = 'YYYY-MM-DD HH:mm:ss') {
+                return {
+                    start_time: dayjs().startOf('date').add(-1, 'day').format(format),
+                    end_time: dayjs().endOf('date').add(-1, 'day').format(format)
+                }
+            },
+            /*
+             * 获取今天的开始时间和结束时间
+             */
+            getToday(format = 'YYYY-MM-DD HH:mm:ss') {
+                return {
+                    start_time: dayjs().startOf('date').format(format),
+                    end_time: dayjs().endOf('date').format(format)
+                }
+            },
+            /**
+             * 获取 前/后 多少天的开始和结束时间  
+             * getDayByRange(-2)  2天前
+             * getDayByRange(3)   3天后
+             */
+            getDayByRange (day, format = 'YYYY-MM-DD HH:mm:ss') {
+                return {
+                    start_time: dayjs().startOf('date').add(day, 'day').format(format),
+                    end_time: dayjs().endOf('date').add(day, 'day').format(format)
+                }
+            },
+            /**
+             * 获取上周的开始时间和结束时间 
+             */
+            getLastWeek(format = 'YYYY-MM-DD') {
+                return {
+                    start_time: dayjs().startOf('week').add(1, 'day').add(-1, 'week').format(format),
+                    end_time: dayjs().endOf('week').add(1, 'day').add(-1, 'week').format(format)
+                }
+            },
+            /**
+             * 获取本周的开始时间和结束时间 
+             */
+            getWeek(format = 'YYYY-MM-DD') {
+                return {
+                    start_time: dayjs().startOf('week').add(1, 'day').format(format),
+                    end_time: dayjs().endOf('week').add(1, 'day').format(format)
+                }
+            },
+            /*
+             * 获取 前/后 多少周的开始和结束时间
+             * getWeekByRange(-2)  2周前
+             * getWeekByRange(0)   本周
+             */
+            getWeekByRange(week, format = 'YYYY-MM-DD') {
+                return {
+                    start_time: dayjs().startOf('week').add(1, 'day').add(week, 'week').format(format),
+                    end_time: dayjs().endOf('week').add(1, 'day').add(week, 'week').format(format)
+                }
+            },
+            /**
+             * 获取上月的开始时间和结束时间
+             */
+             getLastMonth(format = 'YYYY-MM-DD') {
+                return {
+                    start_time: dayjs().add(-1, 'month').startOf('month').format(format),
+                    end_time: dayjs().add(-1, 'month').endOf('month').format(format)
+                }
+            },
+            /**
+             * 获取本月的开始时间和结束时间
+             */
+            getMonth(format = 'YYYY-MM-DD') {
+                return {
+                    start_time: dayjs().startOf('month').format(format),
+                    end_time: dayjs().endOf('month').format(format)
+                }
+            },
+            /*
+             * 获取 前/后 多少月的开始和结束时间
+             * getMonthByRange(-1)  上一个月
+             * getMonthByRange(0)   本月
+             */
+            getMonthByRange(month, format = 'YYYY-MM-DD') {
+                return {
+                    start_time: dayjs().add(month, 'month').startOf('month').format(format),
+                    end_time: dayjs().add(month, 'month').endOf('month').format(format)
+                }
+            },
+            /*
+             * 获取本季度的开始时间和结束时间
+             */
+            getQuarter(format = 'YYYY-MM-DD') {
+                let curMonth = dayjs().month() + 1
+
+                if (curMonth < 3) {
+                    return [
+                        {   
+                            name: "本季度",
+                            start_time: dayjs().month(0).format(format),
+                            end_time: dayjs().month(2).endOf('month').format(format)
+                        },
+                        {   
+                            name: "上季度",
+                            start_time: dayjs().add(-1, 'year').month(9).format(format),
+                            end_time: dayjs().add(-1, 'year').month(11).endOf('month').format(format)
+                        }
+                    ]
+                }
+                else if (curMonth < 6) {
+                    return [
+                        {   
+                            name: "本季度",
+                            start_time: dayjs().month(3).format(format),
+                            end_time: dayjs().month(5).endOf('month').format(format)
+                        },
+                        {   
+                            name: "上季度",
+                            start_time: dayjs().month(0).format(format),
+                            end_time: dayjs().month(2).endOf('month').format(format)
+                        }
+                    ]
+                }
+                else if (curMonth < 9) {
+                    return [
+                        {   
+                            name: "本季度",
+                            start_time: dayjs().month(6).format(format),
+                            end_time: dayjs().month(8).endOf('month').format(format)
+                        },
+                        {   
+                            name: "上季度",
+                            start_time: dayjs().month(3).format(format),
+                            end_time: dayjs().month(5).endOf('month').format(format)
+                        }
+                    ]
+                }
+                else if (curMonth < 12) {
+                    return [
+                        {   
+                            name: "本季度",
+                            start_time: dayjs().month(9).format(format),
+                            end_time: dayjs().month(11).endOf('month').format(format)
+                        },
+                        {   
+                            name: "上季度",
+                            start_time: dayjs().month(6).format(format),
+                            end_time: dayjs().month(8).endOf('month').format(format)
+                        }
+                    ]
+                }
+            }
+        }
+
+
+        console.log(dayjsTool.getQuarter());
+
+    </script>
+</body>
+
+</html>
