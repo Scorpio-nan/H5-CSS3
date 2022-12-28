@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 设想一个这样一个例子，我们有一个简易的计算器程序，支持加减法
+        // class Calculator {
+        //     constructor(initial) {
+        //         this.num = initial;
+        //     }
+
+        //     add(num) {
+        //         this.num = this.num + num;
+        //         return this;
+        //     }
+
+        //     subtract(num) {
+        //         this.num = this.num - num;
+        //         return this;
+        //     }
+
+        //     result() {
+        //         return this.num;
+        //     }
+        // }
+
+        // const cacl = new Calculator(5);
+        // console.log(cacl.add(10).subtract(3).result());  // 12
+
+
+
+
+        // 可以很容易想到，计算器的主要抽象是运算，即当前值和一个新值的运算过程，这部分是稳定的，而支持的运算逻辑是可扩展的，适合做成插件，因此我们可以做如下的改造：
+
+        class Calculator {
+
+            plugins = [];
+
+            constructor(initial){
+                this.num = initial;
+            }
+
+            use(plugin) {
+                this.plugins.push(plugin);
+                this[plugin.name] = plugin.calculate.bind(this);
+            }
+            
+            result() {
+                return this.num;
+            }
+        }
+
+        class AddPlugin {
+
+            name = 'add';
+
+            calculate(num) {
+                this.num = this.num + num;
+                return this;
+            }
+        }
+
+        class SubtractPlugin {
+
+            name = 'subtract';
+
+            calculate(num) {
+                this.num = this.num - num;
+                return this;
+            }
+        }
+
+        // 经过这个改造，未来如果要实现乘法，我们只需要新增一个插件实现即可，无需修改程序主体
+
+        class MultiplicatiPlugin{
+
+            name = 'multiplicati';
+
+            calculate(num) {
+                this.num = this.num * num;
+                return this;
+            }
+        }
+
+        const cacl = new Calculator(5);
+
+        cacl.use(new AddPlugin());
+        cacl.use(new SubtractPlugin());
+        cacl.use(new MultiplicatiPlugin());
+
+        console.log(cacl.add(10).subtract(3).multiplicati(2).result());  //  12
+    
+        
+
+    </script>
+</body>
+
+</html>
