@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0; padding:0;box-sizing:border-box;}
+		</style>
+	</head>
+	<body>
+
+        <div id="container"></div>
+
+        <script type="importmap">
+			{
+				"imports": {
+					"three": "../three.module.js",
+					"three/addons/": "../jsm/"
+				}
+			}
+		</script>
+        <script type='module'>
+            import * as THREE from 'three';
+
+            import Stats from 'three/addons/libs/stats.module.js';
+
+			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+			import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+			import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+            import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+
+            let mixer;
+
+			const clock = new THREE.Clock();
+			const container = document.getElementById( 'container' );
+
+			const stats = new Stats();
+			container.appendChild( stats.dom );
+
+			const renderer = new THREE.WebGLRenderer( { antialias: true } );
+			renderer.setPixelRatio( window.devicePixelRatio );
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.outputEncoding = THREE.sRGBEncoding;
+			container.appendChild( renderer.domElement );
+
+			const pmremGenerator = new THREE.PMREMGenerator( renderer );
+
+			const scene = new THREE.Scene();
+			scene.background = new THREE.Color( 0x000000 );
+			scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.04 ).texture;
+
+			const camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100 );
+			camera.position.set( 5, 2, 10 );
+
+			const controls = new OrbitControls( camera, renderer.domElement );
+			controls.target.set( 0, 0, 0 );
+			controls.update();
+			controls.enablePan = false;
+			controls.enableDamping = true;
+
+            new RGBELoader().load('../resouce/xiaoqingjie/textures/imitate.hdr', function(texture) {
+
+                texture.mapping = THREE.EquirectangularReflectionMapping;
+
+                // scene.background = texture;
+                scene.environment = texture;
+
+
+                const loader = new GLTFLoader();
+
+                loader.load( '../resouce/xiaoqingjie/gl.gltf', function ( gltf ) {
+                    
+                    // debugger;
+
+                    const model = gltf.scene;
+                    model.position.set( 0, -1, 0 );
+                    model.scale.set( 0.005, 0.005, 0.005 );
+                    scene.add( model );
+
+                    mixer = new THREE.AnimationMixer( model );
+                    // mixer.clipAction( gltf.animations[ 0 ] ).play();
+
+                    animate();
+
+                }, undefined, function ( e ) {
+
+                    console.error( e );
+
+                });
+
+            })
+
+			
+
+			window.onresize = function () {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			};
+
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				const delta = clock.getDelta();
+
+				mixer.update( delta );
+
+				controls.update();
+
+				stats.update();
+
+				renderer.render( scene, camera );
+
+			}
+
+        </script>
+	</body>
+
+</html>

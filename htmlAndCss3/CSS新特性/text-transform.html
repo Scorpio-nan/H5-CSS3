@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;box-sizing: border-box;}
+        .pd-3 {
+            padding: 6px 0;
+        }
+        .content, .button-box {
+            padding: 20px;
+        }
+        .mr-b-10 {
+            margin-bottom: 20px;
+        }
+        .mr-r-10 {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="button-box">
+            <button class="mr-r-10" onclick="setTextStyle('capitalize')">首字母大写</button>
+            <button class="mr-r-10" onclick="setTextStyle('uppercase')">全大写</button>
+            <button class="mr-r-10" onclick="setTextStyle('lowercase')">全小写</button>
+            <button class="mr-r-10" onclick="setTextStyle('none')">重置</button>
+        </div>
+        <div class="content">
+            <p class="pd-3 mr-b-10">Youth is not a time of life; it is a state of mind; it is not a matter of rosy cheeks, red lips and supple knees; it is a matter of the will, a quality of the imagination, a vigor of the emotions; it is the freshness of the deep springs of life.</p>
+            <p class="pd-3 mr-b-10">youth means a temperamental predominance of courage over timidity, of the appetite for adventure over the love of ease. this often exists in a man of 60 more than a boy of 20. nobody grows old merely by a number of years. we grow old by deserting our ideals.</p>
+            <p class="pd-3 mr-b-10">YEARS MAY WRINKLE THE SKIN, BUT TO GIVE UP ENTHUSIASM WRINKLES THE SOUL. WORRY, FEAR, SELF-DISTRUST BOWS THE HEART AND TURNS THE SPIRIT BACK TO DUST.</p>
+            <p class="pd-3 mr-b-10">Whether 60 or 16, there is in every human being’s heart the lure of wonders, the unfailing appetite for what’s next and the joy of the game of living. In the center of your heart and my heart, there is a wireless station; so long as it receives messages of beauty, hope, courage and power from man and from the infinite, so long as you are young.0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&()*+,-./:;<=>?</p>
+            <p class="pd-3 mr-b-10">When your aerials are down, and your spirit is covered with snows of cynicism and the ice of pessimism, then you’ve grown old, even at 20; but as long as your aerials are up, to catch waves of optimism, there’s hope you may die young at 80.0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&()*+,-./:;<=>?</p>
+        </div>
+    </div>
+    <script>
+        function setTextStyle(textStyle) {
+            console.log(textStyle, '???')
+            document.body.style.textTransform = textStyle;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .main {
+            width: 400px;
+            height: 600px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .container {
+            width: 400px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container .empty {
+            width: 150px;
+            height: 150px;
+            background: blanchedalmond;
+        }
+
+        .patterns {
+            width: 200px;
+            height: 600px;
+            box-sizing: border-box;
+            overflow: auto;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0 0;
+        }
+
+        .patterns img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            width: 300px;
+            height: 300px;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="main">
+        <h1>请选择喜欢的头像</h1>
+        <div class="container">
+            <div class="empty"></div>
+        </div>
+
+    </section>
+
+    <section class="patterns">
+        <img draggable="true" src="./assets/Compendium.jpeg" alt="Compendium">
+        <img draggable="true" src="./assets/Naruto.jpeg" alt="Naruto">
+        <img draggable="true" src="./assets/Sasuke.jpeg" alt="Sasuke">
+    </section>
+
+
+    <script>
+
+        const empty = document.querySelector("div.empty");
+        const title = document.querySelector("h1");
+        const patterns = document.querySelector(".patterns");
+        let imgName;
+
+        // 拖拽开始时触发
+        document.addEventListener("dragstart", (e) => {
+            imgName = e.target.alt;
+        });
+
+        // 拖拽进行时触发事件，给内容和容器加上边框
+        document.addEventListener("drag", (e) => {
+            e.target.style.border = "3px dashed red";
+            empty.style.border = "3px dashed red";
+        });
+        // 选择目标进入放置区域后触发
+        document.addEventListener("dragenter", (e) => {
+            title.innerHTML = imgName;
+            title.style.color = "red";
+        });
+
+        // 拖拽结束触发事件，去除内容和容器边框
+        document.addEventListener("dragend", (e) => {
+            e.target.style.border = "none";
+            empty.style.border = "none";
+            title.innerHTML = "请选择喜欢的头像";
+            title.style.color = "black";
+        });
+
+        // 拖拽元素进入目标区域时触发
+        empty.addEventListener("dragover", (e) => {
+            // 判断目标区域内若已有元素则移除
+            if (empty.firstChild) {
+                empty.removeChild(empty.firstChild);
+            }
+            e.preventDefault();
+        });
+
+        // 放置触发事件
+        empty.addEventListener("drop", (e) => {
+            // 阻止默认事件
+            e.preventDefault();
+            // cloneNode作用为克隆元素节点，若直接使用appendChild原有元素节点将消失
+            let targetImg = document.querySelector(`img[alt=${imgName}]`).cloneNode(true);
+            targetImg.style.width = "150px";
+            targetImg.style.height = "150px";
+            targetImg.style.border = "none";
+            e.target.appendChild(targetImg);
+        });
+    </script>
+</body>
+
+</html>
