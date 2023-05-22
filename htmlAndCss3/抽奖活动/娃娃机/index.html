@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background: #000;">
+<div id="my-lucky"></div>
+<button onclick="myLucky.play()">play()</button>
+<button onclick="myLucky.stop(0)">stop(0)</button>
+<button onclick="myLucky.stop(1)">stop(1)</button>
+<button onclick="myLucky.stop(2)">stop(2)</button>
+<button onclick="myLucky.stop(-1)">stop(-1)</button>
+<button onclick="myLucky.init()">init()</button>
+<hr>
+<canvas id="off" style="border: 2px solid red;"></canvas>
+<script src="../lucky-canvas.js"></script>
+<script>
+    const myLucky = new LuckyCanvas.SlotMachine('#my-lucky', {
+        width: '240px',
+        height: '180px',
+        blocks: [
+            { padding: '10px', background: '#869cfa' },
+            { padding: '10px', background: '#e9e8fe' },
+        ],
+        slots: [
+            { speed: 10 },
+            { speed: 15 },
+            { speed: 20 },
+        ],
+        prizes: [
+            {
+                background: '#bac5ee',
+                borderRadius: '10px',
+                imgs: [{
+                    width: '60%',
+                    top: '20%',
+                    src: 'https://unpkg.com/buuing@0.0.1/demo/prize.png'
+                }]
+            },
+            {
+                background: '#bac5ee',
+                borderRadius: '10px',
+                imgs: [{
+                    width: '60%',
+                    top: '20%',
+                    src: 'https://unpkg.com/buuing@0.0.1/demo/active.png'
+                }]
+            },
+        ],
+        defaultConfig: {
+            rowSpacing: '10px',
+            colSpacing: '10px'
+        }
+    })
+    const canvas = document.querySelector('#off')
+    const ctx = canvas.getContext('2d')
+    canvas.style['transform-origin'] = 'left top'
+    canvas.style.transform = `scale(${1 / myLucky.config.dpr})`
+    setTimeout(_ => {
+        canvas.width = myLucky._offscreenCanvas.width
+        canvas.height = myLucky._offscreenCanvas.height
+        ctx.drawImage(myLucky._offscreenCanvas, 0, 0)
+    }, 500)
+</script>
+</body>
+</html>

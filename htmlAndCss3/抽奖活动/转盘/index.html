@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="opacity: 1;">
+<body>
+<!-- <script>
+  var documentElement = document.documentElement;
+  function callback() {
+    var clientWidth = documentElement.clientWidth;
+    // 屏幕宽度大于780，不在放大
+    clientWidth = clientWidth < 780 ? clientWidth : 780;
+    documentElement.style.fontSize = clientWidth / 10 + 'px';
+  }
+  document.addEventListener('DOMContentLoaded', callback);
+  window.addEventListener('orientationchange' in window ? 'orientationchange' : 'resize', callback);
+</script> -->
+<div id="my-lucky"></div>
+<br />
+<button onclick="myLucky.play()">play()</button>
+<button onclick="myLucky.stop(0)">stop(0)</button>
+<button onclick="myLucky.stop(1)">stop(1)</button>
+<button onclick="myLucky.stop(-1)">stop(-1)</button>
+<button onclick="myLucky.init()">init()</button>
+<br />
+<button onclick="test1()">test1()</button>
+<script src="../lucky-canvas.js"></script>
+<script>
+    function test1() {
+        myLucky.defaultStyle.background = '#ddd'
+    }
+    const myLucky = new LuckyCanvas.LuckyWheel('#my-lucky', {
+        width: '200px',
+        height: '200px',
+        blocks: [{ padding: '1px', background: '#ccc' }],
+        prizes: [
+            { fonts: [{ text: '0', top: '0%', left: '49%' }],  },
+            { fonts: [{ text: '1', top: '10%' }] },
+            { fonts: [{ text: '2', top: '10%' }] },
+            { fonts: [{ text: '3', top: '10%' }] },
+            { fonts: [{ text: '4', top: '10%' }] },
+            { fonts: [{ text: '5', top: '10%' }] },
+        ],
+        buttons: [
+            { radius: '50%', background: '#fff' },
+        ],
+        defaultStyle: {
+            background: '#fff'
+        },
+        defaultConfig: {
+            gutter: 1
+        },
+        start () {
+            myLucky.play()
+            setTimeout(() => {
+                myLucky.stop(0)
+            })
+        }
+    })
+</script>
+</body>
+</body>
+</html>

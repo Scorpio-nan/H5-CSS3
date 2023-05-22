@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="my-lucky"></div>
+<button onclick="myLucky.play()">play()</button>
+<button onclick="myLucky.stop(0)">stop(0)</button>
+<button onclick="myLucky.stop(1)">stop(1)</button>
+<button onclick="myLucky.stop(2)">stop(2)</button>
+<button onclick="myLucky.stop(-1)">stop(-1)</button>
+<button onclick="myLucky.init()">init()</button>
+<script src="../lucky-canvas.js"></script>
+<script>
+    const myLucky = new LuckyCanvas.LuckyGrid('#my-lucky', {
+        width: '200px',
+        height: '200px',
+        rows: 4,
+        cols: 4,
+        blocks: [
+            { padding: '1rem 2px', background: 'red' }
+        ],
+        prizes: [
+            { x: 0, y: 0 },
+            { x: 1, y: 0 },
+            { x: 2, y: 0 },
+            { x: 3, y: 0 },
+            { x: 3, y: 1 },
+            { x: 3, y: 2 },
+            { x: 3, y: 3 },
+            { x: 2, y: 3 },
+            { x: 1, y: 3 },
+            { x: 0, y: 3 },
+            { x: 0, y: 2 },
+            { x: 0, y: 1 },
+        ],
+        buttons: [
+            {
+                x: 1, y: 1,
+                row: 2, col: 2,
+            },
+        ],
+        defaultStyle: {
+            background: '#f4f5f5'
+        }
+    })
+</script>
+</body>
+</html>
